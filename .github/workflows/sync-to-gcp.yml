@@ -19,7 +19,7 @@ jobs:
       - name: Checkout GCP Repo
         uses: actions/checkout@v4
         with:
-          repository: 'marttorres/croconile-dev' # 👈 REPLACE THIS WITH YOUR OWN REPO PATH
+          repository: 'mtorrescroc/Croconile-Dev' # 👈 REPLACE THIS WITH YOUR OWN REPO PATH
           token: ${{ secrets.GCP_TOKEN }}
           path: gcp-repo
           persist-credentials: true

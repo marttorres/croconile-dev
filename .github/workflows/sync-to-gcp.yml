@@ -33,7 +33,7 @@ jobs:
       - name: Create Pull Request in GCP Repo
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GCP_REPO_TOKEN }}
+          token: ${{ secrets.GCP_TOKEN }}
           path: gcp-repo
           commit-message: "feat: sync incoming changes from Lovable AI"
           title: "🤖 AI Proposed Feature from Lovable"

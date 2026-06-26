@@ -1,0 +1,42 @@
+name: Propose Changes to GCP Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pr-in-gcp:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your Lovable project code using your custom token
+      - name: Checkout Lovable Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GCP_TOKEN }}
+
+      # 2. Checkout your target GCP Repo using the exact same custom token
+      - name: Checkout GCP Repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'marttorres/croconile-dev' # 👈 REPLACE THIS WITH YOUR OWN REPO PATH
+          token: ${{ secrets.GCP_TOKEN }}
+          path: gcp-repo
+          persist-credentials: true
+
+      # 3. Synchronize files into the target folder
+      - name: Sync Files
+        run: |
+          rsync -av --progress . gcp-repo/ --exclude .git --exclude .github --exclude gcp-repo
+
+      # 4. Safely push the branch and open the Pull Request inside the GCP repo
+      - name: Create Pull Request in GCP Repo
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GCP_REPO_TOKEN }}
+          path: gcp-repo
+          commit-message: "feat: sync incoming changes from Lovable AI"
+          title: "🤖 AI Proposed Feature from Lovable"
+          body: "This PR contains the latest features built by Lovable. Please review the frontend components, package.json, and database schema changes before approving."
+          branch: "lovable-sync/patch-${{ github.run_id }}"
+          base: "main"

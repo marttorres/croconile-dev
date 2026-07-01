@@ -35,8 +35,8 @@ jobs:
         with:
           token: ${{ secrets.GCP_TOKEN }}
           path: gcp-repo
-          commit-message: "feat: sync incoming changes from Lovable AI"
+          commit-message: "feat: Sync incoming changes from Lovable AI"
           title: "🤖 AI Proposed Feature from Lovable"
           body: "This PR contains the latest features built by Lovable. Please review the frontend components, package.json, and database schema changes before approving."
-          branch: "lovable-sync/patch-${{ github.run_id }}"
-          base: "main"
+          branch: "feat-lovable-sync/patch-${{ github.run_id }}"
+          base: "dev"
